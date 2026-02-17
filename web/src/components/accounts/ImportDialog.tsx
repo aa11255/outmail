@@ -58,8 +58,9 @@ export default function ImportDialog({ open, onClose, onImport }: Props) {
     if (!previewData) return;
     setLoading(true);
     try {
-      await accountApi.importConfirm({ content, separator, format, mode });
-      onImport();
+      const res = await accountApi.importConfirm({ content, separator, format, mode });
+      alert(`导入完成！新增: ${res.imported}, 跳过: ${res.skipped}`);
+      onImport(); // This should trigger a refresh in the parent component
       handleClose();
     } catch (err: any) {
       alert('导入失败: ' + err.message);
