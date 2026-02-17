@@ -63,7 +63,7 @@ export class AccountModel {
 
   importPreview(req: ImportRequest): { newItems: any[]; duplicates: any[]; errors: string[] } {
     const { content, separator = '----', format = ['email', 'password', 'client_id', 'refresh_token'] } = req;
-    const lines = content.split('\n').map(l => l.trim()).filter(Boolean);
+    const lines = content.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
     const newItems: any[] = [];
     const duplicates: any[] = [];
     const errors: string[] = [];
@@ -89,7 +89,7 @@ export class AccountModel {
 
   importConfirm(req: ImportRequest & { mode: 'skip' | 'overwrite' }): ImportResult {
     const { content, separator = '----', format = ['email', 'password', 'client_id', 'refresh_token'], mode } = req;
-    const lines = content.split('\n').map(l => l.trim()).filter(Boolean);
+    const lines = content.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
     let imported = 0, skipped = 0;
     const errors: string[] = [];
 
@@ -127,7 +127,7 @@ export class AccountModel {
 
   import(req: ImportRequest): ImportResult {
     const { content, separator = '----', format = ['email', 'password', 'client_id', 'refresh_token'] } = req;
-    const lines = content.split('\n').map(l => l.trim()).filter(Boolean);
+    const lines = content.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
     let imported = 0, skipped = 0;
     const errors: string[] = [];
 
